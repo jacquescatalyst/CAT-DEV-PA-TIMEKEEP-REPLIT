@@ -1,0 +1,101 @@
+Implement this endpoint to replace phase2StaticCategoryConfig with a dynamic list.
+
+endPoint: GetLookupValuesDynamic
+
+Body:
+{
+    "logicalName":"cr91f_timesheetcategory",
+    "xmlQuery":"<fetch><entity name=\"cr91f_timesheetcategory\"><attribute name=\"cr91f_categoryid\"/><attribute name=\"cr91f_enddate\"/><attribute name=\"cr91f_startdate\"/><attribute name=\"cr91f_timesheetcategory\"/><attribute name=\"cr91f_timesheetcategoryid\"/><attribute name=\"cr91f_timesheetitem\"/><attribute name=\"statecode\"/><filter><condition attribute=\"cr91f_startdate\" operator=\"le\" value=\"2026-02-01 00:00:00\"/><filter type=\"or\"><condition attribute=\"cr91f_enddate\" operator=\"null\"/><condition attribute=\"cr91f_enddate\" operator=\"ge\" value=\"2026-02-01 00:00:00\"/></filter></filter></entity></fetch>",
+    "filters":null
+}
+
+Where "2026-02-01 00:00:00" is current selected month.
+
+Result:
+[
+    [
+        {
+            "Key": "statecode",
+            "Value": {
+                "Value": 0,
+                "ExtensionData": {}
+            }
+        },
+        {
+            "Key": "cr91f_categoryid",
+            "Value": "T-001"
+        },
+        {
+            "Key": "cr91f_timesheetcategory",
+            "Value": {
+                "Value": 596610001,
+                "ExtensionData": {}
+            }
+        },
+        {
+            "Key": "cr91f_startdate",
+            "Value": "2026-01-01T05:00:00"
+        },
+        {
+            "Key": "cr91f_enddate",
+            "Value": null
+        },
+        {
+            "Key": "cr91f_timesheetitem",
+            "Value": "Administration"
+        },
+        {
+            "Key": "cr91f_timesheetcategoryid",
+            "Value": "6e41991c-d308-f111-8407-7c1e528ce3c0"
+        }
+    ],
+    [
+        {
+            "Key": "statecode",
+            "Value": {
+                "Value": 0,
+                "ExtensionData": {}
+            }
+        },
+        {
+            "Key": "cr91f_categoryid",
+            "Value": "T-002"
+        },
+        {
+            "Key": "cr91f_timesheetcategory",
+            "Value": {
+                "Value": 596610001,
+                "ExtensionData": {}
+            }
+        },
+        {
+            "Key": "cr91f_startdate",
+            "Value": "2026-01-01T05:00:00"
+        },
+        {
+            "Key": "cr91f_enddate",
+            "Value": "2026-03-01T05:00:00"
+        },
+        {
+            "Key": "cr91f_timesheetitem",
+            "Value": "Event / Conference"
+        },
+        {
+            "Key": "cr91f_timesheetcategoryid",
+            "Value": "08ddb722-d308-f111-8407-7c1e528ce3c0"
+        }
+    ]
+]
+
+Map result array items onto "SubCategory" as follows:
+
+cr91f_statecode -> Value.Value -> status
+cr91f_categoryid -> Value -> categoryId
+cr91f_timesheetcategory -> Value.Value -> timeSheetCategory
+cr91f_startdate -> Value -> startDate
+cr91f_enddate -> Value -> endDate
+cr91f_timesheetitem -> Value -> timeSheetItem
+cr91f_timesheetcategoryid -> Value -> timeSheetCategoryId
+
+The phase2StaticCategoryConfig array should be a SubCategory array. "SubCategory.timeSheetCategory" is the category number that can be looked up against CategoryName.keyValue to find the corresponding keyName text used for Category Name. "SubCategory.timeSheetItem" is the text value of the sub category.
+

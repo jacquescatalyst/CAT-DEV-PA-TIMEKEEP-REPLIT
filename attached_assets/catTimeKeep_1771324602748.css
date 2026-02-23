@@ -1,0 +1,673 @@
+/* User avatar (photo or initials) */
+.ts-user-avatar-pic {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    object-fit: cover;
+    background: #e7eaf0;
+    border: 2px solid #b0b4bb;
+    margin-right: 8px;
+    vertical-align: middle;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+}
+
+.ts-user-avatar-initials {
+    width: 32px;
+    height: 32px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: #b0b4bb;
+    color: #2b3c55;
+    font-weight: 700;
+    font-size: 1rem;
+    border: 2px solid #b0b4bb;
+    margin-right: 8px;
+    vertical-align: middle;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+    user-select: none;
+}
+
+.ts-user-avatar-wrapper {
+    display: flex;
+    align-items: center;
+}
+
+/* Copy Previous Month Label */
+.ts-copy-prev-label {
+    font-weight: 600;
+    font-size: 14px;
+    color: #333;
+}
+/* App Footer Section Styles */
+.ts-app-footer-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+}
+
+.ts-app-footer-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.ts-app-footer-right {
+    text-align: right;
+    font-weight: bold;
+    font-size: 14px;
+    color: #888;
+}
+/* Delete confirmation modal styles */
+#ts-delete-confirm-modal {
+    display: none;
+    position: absolute;
+    inset: 0;
+    background: rgba(255,255,255,0.7);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    align-items: center;
+    justify-content: center;
+    z-index: 10000;
+    border-radius: inherit;
+}
+
+#ts-delete-confirm-modal.ts-delete-confirm-modal-visible {
+    display: flex;
+}
+
+#ts-delete-confirm-modal .ts-error-content {
+    max-width: 480px;
+    text-align: center;
+    background: rgba(43, 60, 85, 0.97);
+    border-radius: 16px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.25);
+    padding: 24px 24px 24px 24px;
+}
+
+#ts-delete-confirm-modal h2 {
+    /* margin-bottom: 16px; */
+    font-size: 24px;
+    color: #fff;
+}
+
+#ts-delete-confirm-modal #ts-delete-confirm-message {
+    margin-bottom: 24px;
+    /* white-space: pre-wrap; */
+    color: #fff;
+    font-size: 16px;
+}
+
+#ts-delete-confirm-modal .ts-btn {
+    min-width: 90px;
+    font-size: 14px;
+}
+/* Toolbar logo styles */
+.ts-logo {
+    height: 32px;
+    margin-right: 12px;
+    vertical-align: middle;
+}
+/* Container */
+.ts-app {
+    font-family: 'Segoe UI', Roboto, sans-serif;
+    color: #1a1a1a;
+    border-radius: 10px;
+    background: linear-gradient(135deg, #e7eaf0, #f2f3f5);
+    min-height: 600px;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    font-size: 14px;
+    /* Make .ts-app the positioning context for the loader */
+    position: relative;
+    overflow: hidden; /* ensures overlay doesn’t bleed out on border radius */
+}
+
+/* Loader overlay (confined to .ts-app) */
+#ts-loader {
+    font-family: inherit;
+    position: absolute;   /* relative to .ts-app only */
+    inset: 0;             /* top:0; right:0; bottom:0; left:0; */
+    background: rgba(255, 255, 255, 0.6); /* light glass overlay */
+    backdrop-filter: blur(4px);            /* subtle glassmorphism */
+    -webkit-backdrop-filter: blur(4px);
+    display: none;        /* hidden by default; toggle to show */
+    align-items: center;
+    justify-content: center;
+    z-index: 10;          /* above app content, below modals if any */
+    border-radius: inherit; /* matches rounded corners */
+}
+
+/* Toggle to show loader (add class to .ts-app) */
+.ts-app.is-loading #ts-loader {
+    display: flex;
+}
+
+/* Spinner wrapper */
+.ts-loader-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    padding: 16px 20px;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.75);
+    box-shadow: 0 8px 24px rgba(16, 24, 40, 0.12);
+}
+
+/* Spinner */
+.ts-spinner {
+    width: 40px;
+    height: 40px;
+    border: 3px solid rgba(26, 26, 26, 0.15); /* subtle track */
+    border-top-color: #2b3c55;                /* Microsoft blue accent */
+    border-radius: 50%;
+    animation: ts-spin 0.9s linear infinite;
+}
+
+/* Spinner animation */
+@keyframes ts-spin {
+    to { transform: rotate(360deg); }
+}
+
+/* Loader text */
+.ts-loader-text {
+    font-size: 14px;
+    color: #1a1a1a;
+    opacity: 0.85;
+}
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+    .ts-spinner {
+        animation: none;
+        border-top-color: #1a1a1a; /* visible without motion */
+    }
+}
+
+/* Toolbar with glass effect */
+.ts-toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px 20px;
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(10px);
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    /* margin-bottom: 10px; */
+}
+
+.ts-toolbar-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.ts-label {
+    font-weight: 600;
+    color: #333;
+}
+
+.ts-month-input {
+    font-family: inherit;
+    padding: 8px 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background: linear-gradient(135deg, #f2f3f5, #e7eaf0);
+    font-weight: 400;
+    transition: box-shadow 0.3s ease;
+}
+
+.ts-month-input:hover {
+    background: linear-gradient(135deg, #e7eaf0, #cfd5e1);
+    cursor: pointer;
+}
+
+.ts-month-input:focus {
+    box-shadow: 0 0 8px #2b3c555B;
+    border-color: #2b3c55;
+}
+
+.ts-status-select {
+    font-family: inherit;
+    padding: 8px 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background: linear-gradient(135deg, #f2f3f5, #e7eaf0);
+    font-weight: 400;
+    transition: box-shadow 0.3s ease;
+}
+
+.ts-status-select:hover {
+    background: linear-gradient(135deg, #e7eaf0, #cfd5e1);
+    cursor: pointer;
+}
+
+.ts-status-select:focus {
+    box-shadow: 0 0 8px #2b3c555B;
+    border-color: #2b3c55;
+}
+
+.ts-status-select:focus-visible {
+    border-color: #2b3c55 !important;
+}
+
+/* User pill */
+.ts-user-pill {
+    background: #2b3c55;
+    color: #fff;
+    border-radius: 999px;
+    padding: 8px 8px;
+    font-size: 14px;
+    font-weight: 600;
+    box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.2);
+}
+
+/* Grid container */
+.ts-grid {
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(8px);
+    border-radius: 12px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+    overflow: hidden;
+}
+
+/* Ensure grid body scrolls horizontally */
+.ts-grid-body-scroll {
+    overflow-x: auto;
+    overflow-y: visible;
+    width: 100%;
+    /* margin-bottom: 4px; */
+}
+
+/* Target the container that scrolls */
+.ts-grid-body-scroll::-webkit-scrollbar {
+    background: linear-gradient(to bottom, #aab3c0, #d6dde7); /* track background */
+    /* border-radius: 8px; */
+}
+
+.ts-grid-body-scroll::-webkit-scrollbar-thumb {
+    background: linear-gradient(135deg, #2b3c55, #7893A5); /* thumb color */
+    border-radius: 4px;
+}
+
+.ts-grid-body-scroll::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(135deg, #202b40, #4e6170); /* darker on hover */
+}
+
+.ts-grid-body {
+    min-width: 920px;
+    width: max-content;
+}
+
+/* Header row */
+.ts-grid-header-row {
+    display: flex;
+    background: linear-gradient(135deg, #2b3c55, #7893A5);
+    color: #fff;
+    font-weight: 600;
+    overflow-x: auto;
+    width: 100%;
+    scrollbar-width: none;
+}
+
+.ts-header-cell {
+    flex: 0 0 60px;
+    padding: 8px;
+    text-align: center;
+    border-right: 1px solid rgba(255, 255, 255, 0.2);
+    font-size: 14px;
+}
+
+.ts-header-customer {
+    position: sticky;
+    left: 0;
+    text-align: left;
+    background: #2b3c55;
+    color: #fff;
+    box-shadow: 2px 0 6px rgba(0, 0, 0, 0.1);
+    flex: 0 0 236px;
+    padding-left: 10px;
+    padding-right: 15px;
+}
+
+/* Highlight today */
+.ts-today {
+    background: rgba(198, 160, 92, 1);
+    font-weight: bold;
+}
+
+/* Rows */
+.ts-row {
+    display: flex;
+    min-width: 920px;
+    transition: background 0.3s ease;
+}
+
+.ts-row:nth-child(odd) {
+    background: rgba(231, 234, 240, 0.6);
+}
+
+.ts-row:nth-child(even) {
+    background: rgba(255, 255, 255, 0.6);
+}
+
+.ts-cell {
+    flex: 0 0 64px;
+    padding: 6px;
+    border-right: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+/* Inputs */
+.ts-hour-input {
+    width: 100%;
+    padding: 8px 6px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.9);
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.ts-hour-input:focus {
+    border-color: #2b3c55;
+    box-shadow: 0 0 8px #2b3c554D;
+}
+
+.ts-hour-input:disabled {
+    background: #f0f0f0;
+    color: #888;
+    cursor: not-allowed;
+}
+
+.ts-account-select-wrap {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+}
+
+.ts-cell-customer {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    position: sticky;
+    left: 0;
+    background: rgba(255, 255, 255, 1.0);
+    box-shadow: 2px 0 6px rgba(0, 0, 0, 0.1);
+    flex: 0 0 240px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+/* Dropdown styling */
+.ts-account-select {
+    width: 160px;
+    height: 33px;
+    padding: 8px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    background: linear-gradient(135deg, #f2f3f5, #e7eaf0);
+    font-weight: 500;
+    color: #333;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    transition: background 0.3s ease;
+}
+
+.ts-account-select:hover {
+    background: linear-gradient(135deg, #e7eaf0, #cfd5e1);
+}
+
+/* Buttons */
+.ts-btn {
+    padding: 10px 10px;
+    border-radius: 8px;
+    border: none;
+    background: linear-gradient(0deg, #2b3c55, #b0b7c2);
+    color: #fff;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    /* transition: transform 0.2s ease, background 0.3s ease; */
+}
+
+/* Disabled button styles */
+.ts-btn:disabled,
+.ts-btn[disabled],
+.ts-btn.ts-btn-small:disabled,
+.ts-btn.ts-btn-small[disabled] {
+    background: #b0b7c2 !important;
+    color: #888 !important;
+    cursor: not-allowed !important;
+    opacity: 0.6;
+    box-shadow: none !important;
+    pointer-events: none;
+}
+
+.ts-btn:hover {
+    /* transform: translateY(-2px); */
+    background: linear-gradient(0deg, #5a6b80, #c9ced6);
+}
+/* Active button styles */
+.ts-btn:active,
+.ts-btn-small:active,
+.ts-btn-customer:active,
+.ts-btn-prev-month:active {
+     background: linear-gradient(0deg, #1f2d40, #8c929b);
+     box-shadow: 0 2px 8px rgba(0,0,0,0.15) inset;
+}
+
+.ts-btn-small {
+    width: 33px;
+    height: 33px;
+    padding: 0px;
+}
+
+.ts-btn-prev-month {
+    width: 35px;
+    height: 35px;
+}
+
+.ts-btn-danger {
+    background: linear-gradient(0deg, #c0392b, #e57368);
+}
+
+.ts-btn-danger:hover {
+    background: linear-gradient(0deg, #d45c4c, #f3a89c);
+}
+
+.ts-btn-danger:active {
+    background: linear-gradient(0deg, #982c22, #b95a4c);
+}
+
+.ts-actions {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+}
+
+/* Error overlay */
+#ts-error-overlay {
+    position: absolute;         /* relative to .ts-app */
+    inset: 0;
+    /* background: rgba(43, 60, 85, 0.97); */
+    background: rgba(255, 255, 255, 0.6); /* light glass overlay */
+    backdrop-filter: blur(4px);            /* subtle glassmorphism */
+    -webkit-backdrop-filter: blur(4px);
+    color: #fff;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 20;                /* above loader */
+    font-size: 16px;
+    padding: 32px;
+    border-radius: inherit;     /* match .ts-app rounded corners */
+}
+
+.ts-error-content {
+    max-width: 480px;
+    text-align: center;
+    background: rgba(43, 60, 85, 0.97);
+    border-radius: 16px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.25);
+    padding: 24px 24px 24px 24px;
+}
+
+.ts-error-content h2 {
+    /* margin-bottom: 16px; */
+    font-size: 24px;
+    color: #fff;
+}
+
+#ts-error-message {
+    margin-bottom: 24px;
+    white-space: pre-wrap;
+    color: #ffd6d6;
+}
+
+#ts-error-reload {
+    padding: 10px 24px;
+    border-radius: 8px;
+    border: none;
+    background: #fff;
+    color: #2b3c55;
+    font-weight: 600;
+    cursor: pointer;
+    font-size: 14px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+    transition: background 0.2s, color 0.2s;
+}
+
+#ts-error-reload:hover {
+    background: #2b3c55;
+    color: #fff;
+}
+
+.ts-account-label-wrap {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    align-items: center;
+}
+
+.ts-account-btn-wrap {
+    display: flex;
+    gap: 7px;
+}
+
+.ts-icon-check:before {
+    content: '\f00c';
+    font-family: 'Font Awesome Time Keep';
+    font-weight: 900;
+    color: rgba(255, 255, 255, 1);
+    font-size: 14px;
+    transition: color 0.3s ease;
+    /* padding-left: 3px; */
+}
+
+.ts-icon-check:hover:before {
+    /* color: rgba(64, 224, 0, 1); */
+    cursor: pointer;
+}
+
+.ts-icon-check:active:before {
+    /* color: rgba(32, 192, 0, 1); */
+    cursor: pointer;
+}
+
+.ts-icon-edit:before {
+	content: '\f044';
+	font-family: 'Font Awesome Time Keep';
+	font-weight: 900;
+	color: rgba(255, 255, 255, 1);
+	font-size: 14px;
+	transition: color 0.3s ease;
+	/* padding-left: 3px; */
+}
+
+.ts-icon-edit:hover:before {
+	/* color: rgba(32, 192, 32, 0.7); */
+	cursor: pointer;
+}
+
+.ts-icon-edit:active:before {
+	/* color: rgba(0, 160, 0, 0.7); */
+	cursor: pointer;
+}
+
+.ts-icon-delete:before {
+	content: '\f2ed';
+	font-family: 'Font Awesome Time Keep';
+	font-weight: 900;
+	color: rgba(255, 255, 255, 1);
+	font-size: 14px;
+	/* transition: color 0.3s ease; */
+}
+
+.ts-icon-delete:hover:before {
+	/* color: rgba(192, 32, 32, 0.7); */
+	cursor: pointer;
+}
+
+.ts-icon-delete:active:before {
+	/* color: rgba(164, 32, 32, 0.7); */
+	cursor: pointer;
+}
+
+.ts-icon-cancel:before {
+    content: '\f05e'; /* Font Awesome 'times' (cancel/close) icon */
+    font-family: 'Font Awesome Time Keep';
+    font-weight: 900;
+    color: rgba(255, 255, 255, 1);
+    font-size: 14px;
+    /* transition: color 0.3s ease; */
+}
+
+.ts-icon-cancel:hover:before {
+	/* color: rgba(192, 32, 32, 0.7); */
+	cursor: pointer;
+}
+
+.ts-icon-cancel:active:before {
+	/* color: rgba(164, 32, 32, 0.7); */
+	cursor: pointer;
+}
+
+.ts-icon-copy:before {
+    content: '\f0c5'; /* Font Awesome 'copy' icon */
+    font-family: 'Font Awesome Time Keep';
+    font-weight: 900;
+    color: rgba(255, 255, 255, 1);
+    font-size: 14px;
+    /* transition: color 0.3s ease; */
+}
+
+.ts-icon-copy:hover:before {
+	/* color: rgba(192, 32, 32, 0.7); */
+	cursor: pointer;
+}
+
+.ts-icon-copy:active:before {
+	/* color: rgba(164, 32, 32, 0.7); */
+	cursor: pointer;
+}
+
+@font-face {
+	font-family: "Font Awesome Time Keep";
+	font-display: block;
+	font-weight: 900;
+	src: url(https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.6.0/webfonts/fa-solid-900.woff2) format("woff2"),
+		url(https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.6.0/webfonts/fa-solid-900.ttf) format("truetype");
+}
+ 
+@font-face {
+	font-family: "Font Awesome Time Keep";
+	font-display: block;
+	font-weight: 400;
+	src: url(https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.6.0/webfonts/fa-regular-400.woff2) format("woff2"),
+		url(https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.6.0/webfonts/fa-regular-400.ttf) format("truetype");
+}
