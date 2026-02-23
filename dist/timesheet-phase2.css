@@ -221,6 +221,19 @@
   align-items: center;
 }
 
+@media (max-width: 768px) {
+  .ts-user-pill {
+    padding: 4px;
+  }
+  .ts-user-fullname {
+    display: none;
+  }
+  .ts-user-avatar-pic,
+  .ts-user-avatar-initials {
+    margin-right: 0;
+  }
+}
+
 /* ============================================================
    TABS — Category tab bar
    ============================================================ */
