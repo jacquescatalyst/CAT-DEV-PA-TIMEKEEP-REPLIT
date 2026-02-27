@@ -93,7 +93,9 @@ function getCategoryNameForSubCategory(sub) {
 }
 /** Get sub-category items for a given category name from the dynamic SubCategories list */
 function getSubcategoriesForCategory(cat) {
-    return SubCategories.filter(sub => getCategoryNameForSubCategory(sub) === cat);
+    return SubCategories
+        .filter(sub => getCategoryNameForSubCategory(sub) === cat)
+        .sort((a, b) => a.timeSheetItem.localeCompare(b.timeSheetItem));
 }
 // ================================================================
 //#endregion
