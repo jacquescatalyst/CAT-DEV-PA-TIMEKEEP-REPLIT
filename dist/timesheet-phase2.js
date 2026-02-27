@@ -1369,7 +1369,11 @@ class TimesheetAppV2 {
     }
     /** Get rows filtered for the selected tab */
     getRowsForTab(tab) {
-        return this.rows.filter(r => r.category === tab);
+        const filtered = this.rows.filter(r => r.category === tab);
+        if (!isDynamicCategory(tab)) {
+            filtered.sort((a, b) => a.subCategory.localeCompare(b.subCategory));
+        }
+        return filtered;
     }
     // ----------------------------------------------------------------
     //#endregion
