@@ -1370,9 +1370,7 @@ class TimesheetAppV2 {
     /** Get rows filtered for the selected tab */
     getRowsForTab(tab) {
         const filtered = this.rows.filter(r => r.category === tab);
-        if (!isDynamicCategory(tab)) {
-            filtered.sort((a, b) => a.subCategory.localeCompare(b.subCategory));
-        }
+        filtered.sort((a, b) => a.subCategory.localeCompare(b.subCategory));
         return filtered;
     }
     // ----------------------------------------------------------------
